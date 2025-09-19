@@ -5,10 +5,12 @@ edition = "2024"
 
 
 [dependencies]
-leptos = { version = "0.8.9" }
 serde.workspace = true
+leptos = { version = "0.8.9" }
+leptos_router = "0.8.7"
+leptos_meta = "0.8.5"
+tracing = { workspace = true }
 
-tracing = { workspace = true, optional = true }
 tracing-subscriber = { workspace = true, optional = true }
 tokio = { workspace = true, optional = true }
 dotenvy = { workspace = true, optional = true }
@@ -16,19 +18,54 @@ oauth-axum = { version = "0.1.4", optional = true }
 tower = { version = "0.5.2", optional = true }
 axum = { version = "0.8.4", optional = true }
 tower-http = { version = "0.6.6", features = ["trace"], optional = true }
+leptos_axum = { version = "0.8.6", optional = true }
+wasm-bindgen = { version = "0.2.103", optional = true }
+console_error_panic_hook = { version = "0.1.7", optional = true }
 
 [features]
 default = []
 ssr = [
+    "leptos/ssr",
+    "leptos_meta/ssr",
+    "leptos_router/ssr",
     "dep:tokio",
-    "dep:tracing",
     "dep:tracing-subscriber",
     "dep:dotenvy",
     "dep:axum",
     "dep:oauth-axum",
     "dep:tower",
     "dep:tower-http",
-    "leptos/ssr",
+    "dep:leptos_axum",
 ]
-csr = ["dep:tracing", "leptos/csr"]
-hydrate = ["leptos/hydrate"]
+csr = ["leptos/csr", "dep:wasm-bindgen", "dep:console_error_panic_hook"]
+hydrate = ["leptos/hydrate", "dep:wasm-bindgen", "dep:console_error_panic_hook"]
+
+
+[profile.wasm-release]
+inherits = "release"
+opt-level = 'z'
+lto = true
+codegen-units = 1
+panic = "abort"
+
+
+site-root = "target/site"
+site-pkg-dir = "pkg"
+style-file = "style/main.scss"
+browserquery = "defaults"
+assets-dir = "public"          # Env: LEPTOS_ASSETS_DIR.
+
+site-addr = "127.0.0.1:4242"
+
+reload-port = 3001
+
+env = "DEV"
+bin-features = [
+    "ssr",
+] # Can be over-ridden with the command line parameter --bin-features
+bin-default-features = false
+lib-features = [
+    "hydrate",
+] #Can be over-ridden with the command line parameter --lib-features
+lib-default-features = false
+lib-profile-release = "wasm-release"

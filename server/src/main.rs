@@ -1,14 +1,18 @@
-mod app_state;
-use std::env;
+mod server_app_state;
 
-use axum::{Router, routing::get};
-use tower::ServiceBuilder;
-use tower_http::trace::{DefaultMakeSpan, DefaultOnResponse, TraceLayer};
-use tracing::Level;
-use tracing_subscriber::{EnvFilter, fmt::format::FmtSpan};
-
+#[cfg(feature = "ssr")]
 #[tokio::main(flavor = "multi_thread")]
 async fn main() {
+    use axum::{Router, routing::get};
+    use leptos::prelude::*;
+    use leptos_axum::{LeptosRoutes, generate_route_list};
+    use server_app_state::ServerAppState;
+    use std::env;
+    use tower::ServiceBuilder;
+    use tower_http::trace::{DefaultMakeSpan, DefaultOnResponse, TraceLayer};
+    use tracing::Level;
+    use tracing_subscriber::{EnvFilter, fmt::format::FmtSpan};
+
     let _ = dotenvy::dotenv();
     tracing_subscriber::fmt()
         .pretty()
@@ -39,4 +43,9 @@ async fn main() {
     axum::serve(server_listener, server_router)
         .await
         .expect("Unable to start server");
+}
+
+#[cfg(not(feature = "ssr"))]
+pub fn main() {
+    //Inentional no-op
 }
