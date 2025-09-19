@@ -8,3 +8,4 @@ edition = "2024"
 tracing.workspace = true
 tracing-subscriber.workspace = true
 tokio.workspace = true
+dotenvy.workspace = true
