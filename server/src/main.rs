@@ -21,7 +21,7 @@ async fn main() {
 
     let port = env::var("PORT").unwrap_or("4242".to_string());
     let server_address = format!("0.0.0.0:{}", port);
-    tracing::info!("Beginning to listen on {}", server_address);
+    tracing::info!("Beginning to listen on http://{}", server_address);
     let server_listener = tokio::net::TcpListener::bind(server_address)
         .await
         .expect("Unable to bind listener to server_address: {}");
