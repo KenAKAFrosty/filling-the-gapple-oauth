@@ -51,9 +51,9 @@ panic = "abort"
 
 site-root = "target/site"
 site-pkg-dir = "pkg"
-style-file = "style/main.scss"
+style-file = "site/style/main.css"
+assets-dir = "site/public"         # Env: LEPTOS_ASSETS_DIR.
 browserquery = "defaults"
-assets-dir = "public"          # Env: LEPTOS_ASSETS_DIR.
 
 site-addr = "127.0.0.1:4242"
 
