@@ -126,6 +126,7 @@ You can also go to `Verification Center` on the left to double check verificatio
 Go to `Audience` on the left menu, and hit `Publish app` to be able to actually use it with any arbitrary user.
 
 Without this, it's limited only to test accounts (that's fine at first when you're only testing/staging anyway, just don't forget to publish before attempting to put all this in front of real users!)
+
 ![alt text](<18 - audience, publish app.png>)
 
 ## 19 ) Congrats!
