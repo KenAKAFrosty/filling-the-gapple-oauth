@@ -62,7 +62,7 @@ async fn main() {
                 move || shell(leptos_options.clone())
             },
         )
-        .route("/healthcheck", get(|| async { "OK" })) //intentionally showing the usage of a non-axum route or server_fn being integrated
+        .route("/healthcheck", get(|| async { "OK" })) //intentionally showing the usage of a non-leptos route or server_fn being integrated
         .fallback(leptos_axum::file_and_error_handler(shell))
         .layer(server_middleware)
         .with_state(leptos_options);
