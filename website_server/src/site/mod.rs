@@ -17,14 +17,14 @@ pub fn shell(options: LeptosOptions) -> impl IntoView {
                 <MetaTags/>
             </head>
             <body>
-                <App/>
+                <Site/>
             </body>
         </html>
     }
 }
 
 #[component]
-pub fn App() -> impl IntoView {
+pub fn Site() -> impl IntoView {
     // Provides context that manages stylesheets, titles, meta tags, etc.
     provide_meta_context();
 
@@ -34,9 +34,8 @@ pub fn App() -> impl IntoView {
         <Stylesheet id="leptos" href="/pkg/filling-the-gapple-oauth.css"/>
 
         // sets the document title
-        <Title text="Welcome to Leptos"/>
+        <Title text="Welcome to Leptos!"/>
 
-        // content for this welcome page
         <Router>
             <main>
                 <Routes fallback=|| "Page not found.".into_view()>
@@ -47,10 +46,8 @@ pub fn App() -> impl IntoView {
     }
 }
 
-/// Renders the home page of your application.
 #[component]
 fn HomePage() -> impl IntoView {
-    // Creates a reactive value to update the button
     let count = RwSignal::new(0);
     let on_click = move |_| *count.write() += 1;
 

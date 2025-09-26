@@ -1,5 +1,5 @@
 [workspace]
-members = ["server"]
+members = ["website_server"]
 resolver = "3"
 
 [workspace.dependencies]

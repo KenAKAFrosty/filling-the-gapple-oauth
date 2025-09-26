@@ -5,5 +5,5 @@ pub mod site;
 pub fn hydrate() {
     use crate::site::*;
     console_error_panic_hook::set_once();
-    leptos::mount::hydrate_body(App);
+    leptos::mount::hydrate_body(Site);
 }
